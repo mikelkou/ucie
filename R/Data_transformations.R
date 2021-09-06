@@ -256,6 +256,39 @@ FitColorsFunction <- function(dataset, WL, Wa, Wb){
 
 #' @export
 data2cielab <- function(dataset, WL = 1, Wa = 1, Wb = 1, S = 1){
+
+  if(class(dataset)[1]!="data.framme"){
+    warning("The dataset has been transformed into a data frame.")
+    if(is.na(as.numeric(dataset[,1]))){
+      val <- dataset[,1]
+      dataset <- dataset[,2:ncol(dataset)]
+      dataset <- matrix(as.numeric(unlist(dataset)),nrow=nrow(dataset))
+      rownames(dataset) <- val
+    } else{
+      dataset <- matrix(as.numeric(unlist(dataset)),nrow=nrow(dataset))
+    }
+    dataset <- as.data.frame(dataset)
+  }
+
+  if(is.character(dataset[,1])){
+    rownames(dataset) <- dataset[,1]
+    dataset <- dataset[,2:ncol(dataset)]
+  }
+
+  if(ncol(dataset)==2){
+    warning("Data expanded to 3D!")
+    dataset <- cbind(dataset, rep(1,nrow(dataset)))
+  }
+
+  if(ncol(dataset)>3){
+    stop("The dataset should have 3 numeric columns!")
+    dataset <- cbind(dataset, rep(1,nrow(dataset)))
+  }
+
+  if(any(is.na(dataset))){
+    stop("The dataset has missing values. Check again!")
+  }
+
   dataset <- Scaling(dataset, FitColorsFunction(dataset, WL, Wa, Wb)[1]*S)
   dataset <- Rotation(as.matrix(dataset), FitColorsFunction(dataset, WL, Wa, Wb)[2], FitColorsFunction(dataset, WL, Wa, Wb)[3], FitColorsFunction(dataset, WL, Wa, Wb)[4])
   dataset <- Translation(as.matrix(dataset), FitColorsFunction(dataset, WL, Wa, Wb)[5], FitColorsFunction(dataset, WL, Wa, Wb)[6], FitColorsFunction(dataset, WL, Wa, Wb)[7])
