@@ -1,0 +1,16 @@
+citHeader("To cite ucie3D in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "U-CIE [/juː 'siː/]: Color encoding of high-dimensional data",
+  author   = personList(as.person("Mikaela Koutrouli"), as.person("Lars Juhl Jensen")),
+  journal  = "Not known yet",
+  year     = 2021,
+  volume   = " ",
+  number   = " ",
+  pages    = " ",
+  url      = "https://u-cie.jensenlab.org/",
+  textVersion = paste("Mikaela Koutrouli, Lars J. Jensen (2021).","U-CIE [/juː 'siː/]: Color encoding of high-dimensional data.","URL https://u-cie.jensenlab.org/."
+
+  )
+)
