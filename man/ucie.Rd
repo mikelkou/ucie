@@ -2,7 +2,7 @@
 \alias{data2cielab}
 \title{Mapping 3D Data into CIELab Color Space}
 \usage{
-data2cielab(dataset, WL = 1, Wa = 1, Wb = 1, S = 1)
+data2cielab(dataset, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates = F)
 }
 \arguments{
 \item{dataset}{3-column dataset to be translated into colors.}
