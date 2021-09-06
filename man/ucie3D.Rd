@@ -1,6 +1,6 @@
 \name{ucie3DTransformation}
 \alias{ucie3DTransformation}
-\title{A translation of 3D data into colors, using CIELab color space.}
+\title{A Translation of 3D Data into Colors, using CIELab Color Space}
 \usage{
 ucie3DTransformation(dataset, WL = 1, Wa = 1, Wb = 1, S = 1)
 }

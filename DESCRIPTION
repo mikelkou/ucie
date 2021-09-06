@@ -1,13 +1,12 @@
 Package: ucie3D
 Type: Package
-Title: A translation of 3D data into colors, using CIELab color space
+Title: A Translation of 3D Data into Colors, using CIELab Color Space
 Version: 1.0.0
 Author: Mikaela Koutrouli <mikaela.koutrouli@cpr.ku.dk> [aut, cre], Lars Juhl Jensen <lars.juhl.jensen@cpr.ku.dk> [cre]
 Maintainer: The package maintainer <mikaela.koutrouli@cpr.ku.dk>
 Description: A translation of 3D data into colors, using CIELab color space. CIELab was intended as a perceptually uniform space, where a given numerical change corresponds to similar perceived change in color.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 RoxygenNote: 7.1.1
 Imports: 
     colorspace,
