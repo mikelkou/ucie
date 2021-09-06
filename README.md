@@ -1,28 +1,28 @@
 
-# ucie3D
+# ucie
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of ucie3D is to translate 3D data into colors, using CIELab color space.
+The goal of ucie is to map data into CIELab Color Space.
 
 ## Installation
 
-You can install the released version of ucie3D from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of ucie from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("ucie3D")
+install.packages("ucie")
 or
-devtools::install_github("mikelkou/ucie3D")
+devtools::install_github("mikelkou/ucie")
 ```
 
 ## Usage
 
 ```r
-library(ucie3D)
+library(ucie)
 
-# returns a data frame with names of data and colors
-ucie3DTransformation(dataset)
+# returns a data frame with names of data points and colors
+data2cielab(dataset)
 ```
 
 ## Example
@@ -30,9 +30,10 @@ ucie3DTransformation(dataset)
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(ucie3D)
+library(ucie)
 ## basic example code
-3D_data_with_colors <- ucie3DTransformation(dataset, WL=1, Wa=1, Wb=1.2, S=1.2)
+df <- data.frame(V1=runif(100,  0,1), V2=runif(100,  0,5), V3=runif(100,  0,30))
+3D_data_with_colors <- data2cielab(df, Wb=1.2, S=1.6)
 ```
 
 ## Contributing

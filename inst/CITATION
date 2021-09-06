@@ -4,7 +4,7 @@ citEntry(
   entry    = "Article",
   title    = "U-CIE [/juː 'siː/]: Color encoding of high-dimensional data",
   author   = personList(as.person("Mikaela Koutrouli"), as.person("Lars Juhl Jensen")),
-  journal  = "Not known yet",
+  journal  = "Manuscript in preparation",
   year     = 2021,
   volume   = " ",
   number   = " ",

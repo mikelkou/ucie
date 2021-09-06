@@ -80,7 +80,7 @@ ColorSpacePolygon <- function(ColorSpace){
   return(polygon)
 } # Switch colorspaces -- e.g. Fit sRGB (box) into the CIELab color space
 
-UMAPConvex <- function(Query){
+DataConvex <- function(Query){
   ch_cloud <- grDevices::chull(as.matrix(Query))
   ConvexCloud <- as.matrix(Query)[c(ch_cloud, ch_cloud[1]), ] # Convex of cloud
   return(ConvexCloud)
@@ -103,7 +103,7 @@ Scaling <- function(ConvexCloud, S){
   return(ConvexCloud)
 }
 
-NewConvexCloud <- function(S, RotL, Rota, Rotb,  TrL, Tra, Trb, WL, Wa, Wb, Query){
+TransformedConvexCloud <- function(S, RotL, Rota, Rotb,  TrL, Tra, Trb, WL, Wa, Wb, Query){
   ConvexCloud <- Rotation(Query, RotL, Rota, Rotb)
   ConvexCloud <- Scaling(ConvexCloud, S)
   ConvexCloud <- Translation(ConvexCloud, TrL, Tra, Trb)
@@ -124,7 +124,7 @@ NewConvexCloud <- function(S, RotL, Rota, Rotb,  TrL, Tra, Trb, WL, Wa, Wb, Quer
 } # Transform the UMAP Convex to otpimize it
 
 Distance <- function(S, RotL, Rota, Rotb,  TrL, Tra, Trb, WL, Wa, Wb, Query, polygon, faces){
-  ConvexCloud <- NewConvexCloud(S, RotL, Rota, Rotb,  TrL, Tra, Trb, WL, Wa, Wb, Query)
+  ConvexCloud <- TransformedConvexCloud(S, RotL, Rota, Rotb,  TrL, Tra, Trb, WL, Wa, Wb, Query)
   point_in_space <- ptinpoly::pip3d(polygon, faces, ConvexCloud)
   outside <- ConvexCloud[which(point_in_space==-1), ]
   # print(outside)
@@ -137,7 +137,7 @@ Distance <- function(S, RotL, Rota, Rotb,  TrL, Tra, Trb, WL, Wa, Wb, Query, pol
   return(dist)
 } # Gives me the distance of the points from the Polygon
 
-MasterFunction <- function(param, WL, Wa, Wb, data, polygon, faces){
+ObjectiveFunction <- function(param, WL, Wa, Wb, data, polygon, faces){
   X <- Distance(param[1],param[2],param[3],param[4],param[5],param[6],param[7], WL, Wa, Wb, data, polygon, faces) # S, RotL, Rota, Rotb,  TrL, Tra, Trb
   a <- 1
   f <- (a*param[1]) - sum(X^2)
@@ -146,20 +146,20 @@ MasterFunction <- function(param, WL, Wa, Wb, data, polygon, faces){
 
 FitColorsFunction <- function(dataset, WL, Wa, Wb){
   polygon = ColorSpacePolygon(RGB_space)
-  dat <- UMAPConvex(dataset)
+  dat <- DataConvex(dataset)
   faces <- geometry::convhulln(polygon, return.non.triangulated.facets = T)
 
   #------ Initial Guess ---------------------------------------------------------#
   #--- Translation ---#
   centroidval_color_space <- colMeans(polygon) # centroid of color space
-  centroidval_cloud <- colMeans(UMAPConvex(dataset)) # centroid of cloud
+  centroidval_cloud <- colMeans(DataConvex(dataset)) # centroid of cloud
 
   TrL <- (centroidval_color_space - centroidval_cloud)[1]
   Tra <- (centroidval_color_space - centroidval_cloud)[2]
   Trb <- (centroidval_color_space - centroidval_cloud)[3]
 
   #--- Scaling factor ---#
-  ConvexCloud <- (UMAPConvex(dataset))
+  ConvexCloud <- (DataConvex(dataset))
 
   Cloud1Size <- max(ConvexCloud[, 1]) - min(ConvexCloud[, 1])
   Cloud2Size <- max(ConvexCloud[, 2]) - min(ConvexCloud[, 2])
@@ -232,7 +232,7 @@ FitColorsFunction <- function(dataset, WL, Wa, Wb){
   for(i in 1:25){
     Simplex_optim <- stats::optim(par = start.values,
                            method = "Nelder-Mead",
-                           MasterFunction,
+                           ObjectiveFunction,
                            WL = WL,
                            Wa = Wa,
                            Wb = Wb,
@@ -255,12 +255,12 @@ FitColorsFunction <- function(dataset, WL, Wa, Wb){
 # S, RotL, Rota, Rotb,  TrL, Tra, Trb
 
 #' @export
-ucie3DTransformation <- function(dataset, WL = 1, Wa = 1, Wb = 1, S = 1){
-  New_dataset <- Scaling(dataset, FitColorsFunction(dataset, WL, Wa, Wb)[1]*S)
-  New_dataset <- Rotation(as.matrix(New_dataset), FitColorsFunction(dataset, WL, Wa, Wb)[2], FitColorsFunction(dataset, WL, Wa, Wb)[3], FitColorsFunction(dataset, WL, Wa, Wb)[4])
-  New_dataset <- Translation(as.matrix(New_dataset), FitColorsFunction(dataset, WL, Wa, Wb)[5], FitColorsFunction(dataset, WL, Wa, Wb)[6], FitColorsFunction(dataset, WL, Wa, Wb)[7])
+data2cielab <- function(dataset, WL = 1, Wa = 1, Wb = 1, S = 1){
+  dataset <- Scaling(dataset, FitColorsFunction(dataset, WL, Wa, Wb)[1]*S)
+  dataset <- Rotation(as.matrix(dataset), FitColorsFunction(dataset, WL, Wa, Wb)[2], FitColorsFunction(dataset, WL, Wa, Wb)[3], FitColorsFunction(dataset, WL, Wa, Wb)[4])
+  dataset <- Translation(as.matrix(dataset), FitColorsFunction(dataset, WL, Wa, Wb)[5], FitColorsFunction(dataset, WL, Wa, Wb)[6], FitColorsFunction(dataset, WL, Wa, Wb)[7])
 
-  Lab <- New_dataset
+  Lab <- dataset
   Lab <- round(Lab, 2)
   rawdata = structure(
     list(
@@ -269,38 +269,15 @@ ucie3DTransformation <- function(dataset, WL = 1, Wa = 1, Wb = 1, S = 1){
       Bstar = c(Lab[, 3])
     ),
     .Names = c("Lstar", "Astar", "Bstar"),
-    row.names = c(rownames(New_dataset)),
+    row.names = c(rownames(dataset)),
     class = "data.frame"
   )
 
   LABdata <- with(rawdata, colorspace::LAB(Lstar, Astar, Bstar))
-  colors <- as.data.frame(cbind(rownames(New_dataset),colorspace::hex(LABdata, fix = TRUE)))
+  colors <- as.data.frame(cbind(rownames(dataset),colorspace::hex(LABdata, fix = TRUE)))
 
   return(colors)
 }
-
-
-
-#----------------------------------------------------------#
-# Comments of packages needed
-# requireNamespace("dplyr", quietly = TRUE)
-# requireNamespace("rgl", quietly = TRUE)
-# requireNamespace("geometry", quietly = TRUE)
-# requireNamespace("ptinpoly", quietly = TRUE)
-# requireNamespace("pracma", quietly = TRUE)
-# requireNamespace("colorspace", quietly = TRUE)
-# requireNamespace("prodlim", quietly = TRUE)
-
-# library(dplyr)
-# library(rgl)
-# library(geometry) # faces
-# library(ptinpoly) # pip3d
-# # '1' indicates that the point is contained in the polyhedron.
-# # '0' indicates that the point lies exactly on the surface of the polyhedron.
-# # '-1' indicates that the point lies outside the polyhedron.
-# library(pracma) # distmat
-# library(prodlim)
-# library(colorspace)
 
 
 
