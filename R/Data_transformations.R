@@ -75,13 +75,13 @@ ColorSpacePolygon <- function(ColorSpace){
     return(cbind(L,a,b))
   }
   RGBtoLabCoords <- as.data.frame(RGB2Lab(as.matrix(ColorSpace)/255)) # RGB space
-  ch <- chull(as.matrix(RGBtoLabCoords))
+  ch <- grDevices::chull(as.matrix(RGBtoLabCoords))
   polygon <- as.matrix(RGBtoLabCoords)[c(ch, ch[1]), ] # Convex that cloud should fit in
   return(polygon)
 } # Switch colorspaces -- e.g. Fit sRGB (box) into the CIELab color space
 
 UMAPConvex <- function(Query){
-  ch_cloud <- chull(as.matrix(Query))
+  ch_cloud <- grDevices::chull(as.matrix(Query))
   ConvexCloud <- as.matrix(Query)[c(ch_cloud, ch_cloud[1]), ] # Convex of cloud
   return(ConvexCloud)
 } # Create a Convex Hull from the UMAP
@@ -230,7 +230,7 @@ FitColorsFunction <- function(dataset, WL, Wa, Wb){
   k <- c()
 
   for(i in 1:25){
-    Simplex_optim <- optim(par = start.values,
+    Simplex_optim <- stats::optim(par = start.values,
                            method = "Nelder-Mead",
                            MasterFunction,
                            WL = WL,
