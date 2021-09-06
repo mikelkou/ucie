@@ -14,6 +14,8 @@ data2cielab(dataset, WL = 1, Wa = 1, Wb = 1, S = 1)
 \item{Wb}{Weight of bstar axis in optimization function. Default value 1.}
 
 \item{S}{Scaling factor for color mapping. Default value 1.}
+
+\item{LAB_coordinates}{Logical. If False, the function returns a data frame with hex colors. If True, the function returns a data frame with the L*a*b* coordinates. Default value F.}
 }
 \value{
 None

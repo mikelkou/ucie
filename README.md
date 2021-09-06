@@ -21,8 +21,8 @@ devtools::install_github("mikelkou/ucie")
 ```r
 library(ucie)
 
-# returns a data frame with names of data points and colors
-data2cielab(dataset)
+# returns a data frame with names of data points and colors (hex colors or Lab coordinates)
+data2cielab(dataset, WL, Wa, Wb, S, LAB_coordinates)
 ```
 
 ## Example

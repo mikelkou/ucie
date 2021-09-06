@@ -255,9 +255,9 @@ FitColorsFunction <- function(dataset, WL, Wa, Wb){
 # S, RotL, Rota, Rotb,  TrL, Tra, Trb
 
 #' @export
-data2cielab <- function(dataset, WL = 1, Wa = 1, Wb = 1, S = 1){
+data2cielab <- function(dataset, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates = F){
 
-  if(class(dataset)[1]!="data.framme"){
+  if(class(dataset)[1]!="data.frame"){
     warning("The dataset has been transformed into a data frame.")
     if(is.na(as.numeric(dataset[,1]))){
       val <- dataset[,1]
@@ -307,7 +307,13 @@ data2cielab <- function(dataset, WL = 1, Wa = 1, Wb = 1, S = 1){
   )
 
   LABdata <- with(rawdata, colorspace::LAB(Lstar, Astar, Bstar))
-  colors <- as.data.frame(cbind(rownames(dataset),colorspace::hex(LABdata, fix = TRUE)))
+
+  if(LAB_coordinates==F){
+    colors <- as.data.frame(cbind(rownames(dataset),colorspace::hex(LABdata, fix = TRUE)))
+  } else {
+    colors <- as.data.frame(cbind(rownames(dataset),as.data.frame(LABdata@coords)))
+    colnames(colors) <- c("names", "L", "a", "b")
+  }
 
   return(colors)
 }
