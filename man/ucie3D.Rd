@@ -1,6 +1,6 @@
 \name{ucie3DTransformation}
 \alias{ucie3DTransformation}
-\title{A trnaslation of 3D data into colors, using CIELab color space.}
+\title{A translation of 3D data into colors, using CIELab color space.}
 \usage{
 ucie3DTransformation(dataset, WL = 1, Wa = 1, Wb = 1, S = 1)
 }
@@ -19,5 +19,5 @@ ucie3DTransformation(dataset, WL = 1, Wa = 1, Wb = 1, S = 1)
 None
 }
 \description{
-Translate the 3D data into colors of CIELab color space. CIELAB was intended as a perceptually uniform space, where a given numerical change corresponds to similar perceived change in color.
+Translate the 3D data into colors of CIELab color space. CIELab was intended as a perceptually uniform space, where a given numerical change corresponds to similar perceived change in color.
 }
