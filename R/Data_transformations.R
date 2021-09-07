@@ -1,3 +1,5 @@
+Sys.setenv(RGL_USE_NULL="TRUE")
+
 #' @import dplyr rgl
 #' @import colorspace
 #' @importFrom geometry convhulln
@@ -6,7 +8,6 @@
 NULL
 
 # RGL_USE_NULL=TRUE
-Sys.setenv(RGL_USE_NULL=TRUE)
 
 RGB_space <- data.frame("R"= c(seq(0, 255, by=32),255, # K -> R
                                seq(0, 255, by=32),255, # G -> Y
