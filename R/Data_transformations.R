@@ -1,14 +1,11 @@
-#' @import dplyr
+#' @import dplyr rgl
 #' @import colorspace
-#' @importFrom rgl rotate3d
-#' @importFrom rgl translate3d
-#' @importFrom rgl scale3d
 #' @importFrom geometry convhulln
 #' @importFrom pracma distmat
 #' @importFrom ptinpoly pip3d
 NULL
 
-# options(rgl.useNULL=TRUE)
+options(rgl.useNULL=TRUE)
 
 RGB_space <- data.frame("R"= c(seq(0, 255, by=32),255, # K -> R
                                seq(0, 255, by=32),255, # G -> Y
@@ -92,19 +89,19 @@ DataConvex <- function(Query){
 } # Create a Convex Hull from the UMAP
 
 Rotation <- function(ConvexCloud, RotL, Rota, Rotb){
-  ConvexCloud <- rgl::rotate3d(obj = ConvexCloud, angle = RotL, x = 1, y = 0, z = 0)
-  ConvexCloud <- rgl::rotate3d(obj = ConvexCloud, angle = Rota, x = 0, y = 1, z = 0)
-  ConvexCloud <- rgl::rotate3d(obj = ConvexCloud, angle = Rotb, x = 0, y = 0, z = 1)
+  ConvexCloud <-  suppressWarnings(rgl::rotate3d(obj = ConvexCloud, angle = RotL, x = 1, y = 0, z = 0))
+  ConvexCloud <-  suppressWarnings(rgl::rotate3d(obj = ConvexCloud, angle = Rota, x = 0, y = 1, z = 0))
+  ConvexCloud <-  suppressWarnings(rgl::rotate3d(obj = ConvexCloud, angle = Rotb, x = 0, y = 0, z = 1))
   return(ConvexCloud)
 }
 
 Translation <- function(ConvexCloud, TrL, Tra, Trb){
-  ConvexCloud <- rgl::translate3d(ConvexCloud, TrL, Tra, Trb)
+  ConvexCloud <-  suppressWarnings(rgl::translate3d(ConvexCloud, TrL, Tra, Trb))
   return(ConvexCloud)
 }
 
 Scaling <- function(ConvexCloud, S){
-  ConvexCloud <- rgl::scale3d(ConvexCloud, S, S, S)
+  ConvexCloud <-  suppressWarnings(rgl::scale3d(ConvexCloud, S, S, S))
   return(ConvexCloud)
 }
 
