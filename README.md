@@ -3,6 +3,9 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/mikelkou/ucie/workflows/R-CMD-check/badge.svg)](https://github.com/mikelkou/ucie/actions)
+[![Travis build status](https://travis-ci.com/mikelkou/ucie.svg?branch=master)](https://travis-ci.com/mikelkou/ucie)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/mikelkou/ucie?branch=master&svg=true)](https://ci.appveyor.com/project/mikelkou/ucie)
+[![CircleCI build status](https://circleci.com/gh/mikelkou/ucie.svg?style=svg)](https://circleci.com/gh/mikelkou/ucie)
 <!-- badges: end -->
 
 The goal of ucie is to map data into CIELab Color Space.
