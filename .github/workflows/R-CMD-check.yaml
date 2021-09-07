@@ -11,14 +11,6 @@ name: R-CMD-check
 jobs:
   R-CMD-check:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v1
-        - run: sudo apt-get install xvfb
-        - run: export DISPLAY=':99.0'
-        - run: Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-        - run: npm install browser-run
-        - run: npm install electron # Without this, Electron complains it's not installed correctly
-        - run: echo 'console.log(9001); window.close()' | ./node_modules/.bin/browser-run
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
