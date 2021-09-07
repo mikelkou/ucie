@@ -1,10 +1,10 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
+language: R
+cache: packages
 before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
-language: R
-cache: packages
 warnings_are_errors: false
 r_build_args: '--no-build-vignettes'
 r_check_args: '--as-cran --no-build-vignettes'
-
