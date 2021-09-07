@@ -9,6 +9,9 @@ on:
 name: R-CMD-check
 
 jobs:
+  before_install:
+    - export DISPLAY=:99.0
+    - sh -e /etc/init.d/xvfb start
   R-CMD-check:
     runs-on: ubuntu-latest
     env:
