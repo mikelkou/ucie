@@ -21,5 +21,5 @@ data2cielab(dataset, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates = F)
 None
 }
 \description{
-3D data can be mapped to colors for use in data visualization.
+Data can be mapped to colors for use in data visualization.
 }
