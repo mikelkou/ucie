@@ -3,7 +3,7 @@ Type: Package
 Title: Mapping 3D Data into CIELab Color Space
 Version: 1.0.0
 Author: Mikaela Koutrouli <mikaela.koutrouli@cpr.ku.dk> [aut, cre], Lars Juhl Jensen <lars.juhl.jensen@cpr.ku.dk> [cre]
-Maintainer: The package maintainer <mikaela.koutrouli@cpr.ku.dk>
+Maintainer: Mikaela Koutrouli <mikaela.koutrouli@cpr.ku.dk>
 Description: 3D data can be mapped to colors for use in data visualization.
 License: MIT + file LICENSE
 Encoding: UTF-8
