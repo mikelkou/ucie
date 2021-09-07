@@ -5,7 +5,8 @@
 #' @importFrom ptinpoly pip3d
 NULL
 
-options(rgl.useNULL=F)
+# RGL_USE_NULL=TRUE
+Sys.setenv(RGL_USE_NULL=TRUE)
 
 RGB_space <- data.frame("R"= c(seq(0, 255, by=32),255, # K -> R
                                seq(0, 255, by=32),255, # G -> Y
