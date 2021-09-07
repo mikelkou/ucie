@@ -2,6 +2,7 @@ Sys.setenv(RGL_USE_NULL="TRUE")
 
 #' @import dplyr
 #' @import colorspace
+#' @importFrom Bioconductor widgetTools
 #' @importFrom geometry convhulln
 #' @importFrom pracma distmat
 #' @importFrom ptinpoly pip3d

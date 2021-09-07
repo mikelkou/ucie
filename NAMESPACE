@@ -3,6 +3,7 @@
 export(data2cielab)
 import(colorspace)
 import(dplyr)
+importFrom(Bioconductor,widgetTools)
 importFrom(geometry,convhulln)
 importFrom(pracma,distmat)
 importFrom(ptinpoly,pip3d)

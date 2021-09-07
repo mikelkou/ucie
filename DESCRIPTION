@@ -14,7 +14,8 @@ Imports:
     geometry,
     pracma,
     ptinpoly,
-    rgl
+    rgl,
+    widgetTools
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
