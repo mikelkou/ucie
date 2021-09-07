@@ -37,7 +37,7 @@ This is a basic example which shows you how to solve a common problem:
 library(ucie)
 ## basic example code
 df <- data.frame(V1=runif(100,  0,1), V2=runif(100,  0,5), V3=runif(100,  0,30))
-3D_data_with_colors <- data2cielab(df, Wb=1.2, S=1.6)
+data_with_colors <- data2cielab(df, Wb=1.2, S=1.6)
 ```
 
 ## Contributing
