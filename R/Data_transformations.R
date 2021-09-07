@@ -1,5 +1,8 @@
-#' @import dplyr rgl
+#' @import dplyr
 #' @import colorspace
+#' @importFrom rgl rotate3d
+#' @importFrom rgl translate3d
+#' @importFrom rgl scale3d
 #' @importFrom geometry convhulln
 #' @importFrom pracma distmat
 #' @importFrom ptinpoly pip3d
