@@ -9,8 +9,6 @@ on:
 name: R-CMD-check
 
 jobs:
-  before_install:
-    - export DISPLAY=:99.0
   R-CMD-check:
     runs-on: ubuntu-latest
     env:
