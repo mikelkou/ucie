@@ -1,7 +1,6 @@
 Sys.setenv(RGL_USE_NULL="TRUE")
 
 #' @import dplyr
-#' @import tcltk2
 #' @import colorspace
 #' @importFrom geometry convhulln
 #' @importFrom pracma distmat
