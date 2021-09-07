@@ -2,6 +2,7 @@
 # ucie
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/mikelkou/ucie/workflows/R-CMD-check/badge.svg)](https://github.com/mikelkou/ucie/actions)
 <!-- badges: end -->
 
 The goal of ucie is to map data into CIELab Color Space.
