@@ -1,6 +1,6 @@
 # source("Data_transformations.R")
 # library(ucie)
-options(rgl.useNULL=TRUE)
+# options(rgl.useNULL=TRUE)
 
 df <- data.frame(V1=runif(100,  0,1), V2=runif(100,  0,5), V3=runif(100,  0,30))
 
