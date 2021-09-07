@@ -3,11 +3,11 @@
 ---
 
 
-### Bugfixes
+### Bug fixes
 
 
 
-## version 0.0.0.9000
+## version 0.9.0
 
 ---
 
