@@ -29,8 +29,8 @@ jobs:
         env:
           _R_CHECK_CRAN_INCOMING_: false
         run: |
-          export DISPLAY=:99.0
-          sh -e /etc/init.d/xvfb start
+          Sys.setenv(DISPLAY="paxbox1.paxco.com:0.0")
+          suppressPackageStartupMessages(suppressWarnings(library(tcltk)))
           options(crayon.enabled = TRUE)
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
