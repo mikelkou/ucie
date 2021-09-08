@@ -1,6 +1,7 @@
 Sys.setenv("DISPLAY"=":0.0")
 
 #' @import dplyr
+#' @import rgl
 #' @import remotes
 #' @import colorspace
 #' @importFrom geometry convhulln
