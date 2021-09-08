@@ -3,6 +3,7 @@
 export(data2cielab)
 import(colorspace)
 import(dplyr)
+import(remotes)
 importFrom(geometry,convhulln)
 importFrom(pracma,distmat)
 importFrom(ptinpoly,pip3d)
