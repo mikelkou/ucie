@@ -263,9 +263,6 @@ FitColorsFunction <- function(dataset, WL, Wa, Wb){
 #' @export
 data2cielab <- function(dataset, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates = F){
 
-  # install.packages("rgl", repos = "https://dmurdoch.github.io/drat",
-  #                  type = "binary")
-
   if(class(dataset)[1]!="data.frame"){
     warning("The dataset has been transformed into a data frame.")
     if(is.na(as.numeric(dataset[,1]))){

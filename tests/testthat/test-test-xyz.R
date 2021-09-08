@@ -2,7 +2,7 @@
 # library(ucie)
 # options(rgl.useNULL=TRUE)
 
-df <- data.frame(V1=runif(10,  0,1), V2=runif(10,  0,5), V3=runif(10,  0,30))
+df <- data.frame(V1=runif(2,  0,1), V2=runif(2,  0,5), V3=runif(2,  0,30))
 
 test_that("data2cielab works", {
 
