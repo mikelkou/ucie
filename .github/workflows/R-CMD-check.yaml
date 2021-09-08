@@ -26,6 +26,13 @@ jobs:
         with:
           extra-packages: rcmdcheck
 
+      - name: Query dependencies
+        run: |
+          install.packages(c('remotes', 'sessioninfo', 'rcmdcheck', 'desc'))
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+        shell: Rscript {0}
+
       - name: Install rgl & dependencies
         run: |
           # Be sure to get appropriate CRAN or Github versions
