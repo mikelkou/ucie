@@ -1,4 +1,4 @@
-Sys.setenv(RGL_USE_NULL="TRUE")
+Sys.setenv(RGL_USE_NULL="TRUE", R_INTERACTIVE_DEVICE="TRUE")
 
 #' @import dplyr
 #' @import colorspace
