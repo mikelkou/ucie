@@ -1,4 +1,4 @@
-Sys.setenv(RGL_USE_NULL="TRUE", R_INTERACTIVE_DEVICE="TRUE")
+Sys.setenv(RGL_USE_NULL="TRUE", R_INTERACTIVE_DEVICE="TRUE", DISPLAY="paxbox1.paxco.com:0.0")
 
 #' @import dplyr
 #' @import colorspace

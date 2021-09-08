@@ -1,5 +1,15 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/master/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+
+before_install:
+  - 'export DISPLAY=:99.0'
+  - 'sh -e /etc/init.d/xvfb start'
+language: R
+cache: packages
+warnings_are_errors: false
+r_build_args: '--no-build-vignettes'
+r_check_args: '--as-cran --no-build-vignettes'
+
 on:
   push:
     branches: [main, master]
