@@ -1,10 +1,8 @@
-df <- data.frame(V1=runif(2,  0,1), V2=runif(2,  0,5), V3=runif(2,  0,30))
+df <- data.frame(V1=runif(2,  0,1), V2=runif(2,  0,5))
 
 test_that("data2cielab works", {
-
-  data_with_colors <- data2cielab(df, Wb=1.2, S=1.6)
   suppressWarnings(
-  expect_that( ncol(data_with_colors), equals(2) )
+    expect_that(data2cielab(df), gives_warning())
   )
 })
 
