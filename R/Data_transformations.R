@@ -229,7 +229,6 @@ FitColorsFunction <- function(dataset, WL, Wa, Wb){
   S <- MaxScalingFactor
 
   # Simplex optimizer
-  set.seed(123)
   simplex_vectors <- c()
   angle <- 1
   start.values <- c(S , pi/4 ,pi/4, pi/4, TrL, Tra , Trb) # S, RotL, Rota, Rotb,  TrL, Tra, Trb
