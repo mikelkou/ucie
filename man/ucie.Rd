@@ -2,7 +2,7 @@
 \alias{data2cielab}
 \title{Mapping 3D Data into CIELab Color Space}
 \usage{
-data2cielab(dataset, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates = F)
+data2cielab(dataset, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates = FALSE)
 }
 \arguments{
 \item{dataset}{3-column dataset to be translated into colors.}
@@ -15,11 +15,19 @@ data2cielab(dataset, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates = F)
 
 \item{S}{Scaling factor for color mapping. Default value 1.}
 
-\item{LAB_coordinates}{Logical. If False, the function returns a data frame with hex colors. If True, the function returns a data frame with the L*a*b* coordinates. Default value F.}
+\item{LAB_coordinates}{Logical. If FALSE, the function returns a data frame with hex colors. If TRUE, the function returns a data frame with the L*a*b* coordinates. Default value FALSE.}
 }
 \value{
 None
 }
 \description{
-Data can be mapped to colors for use in data visualization.
+Data can be mapped to colors for use in data visualization. UCIE optimally maps data points into a polygon that represents the CIELAB colour space. Since euclidean distances approximate relative perceptual differences in CIELAB color space, the result is a color encoding that aims to capture much of the structure of the original data.
 }
+\examples{
+df <- data.frame(V1=runif(10,  0,1), V2=runif(10,  0,5), V3=runif(10,  0,30))
+data_with_colors <- data2cielab(df, Wb=1.2, S=1.6)
+data_with_colors <- data2cielab(df, LAB_coordinates = TRUE)
+}
+
+
+

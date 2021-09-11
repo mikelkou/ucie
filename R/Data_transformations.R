@@ -153,7 +153,7 @@ ObjectiveFunction <- function(param, WL, Wa, Wb, data, polygon, faces){
 FitColorsFunction <- function(dataset, WL, Wa, Wb){
   polygon = ColorSpacePolygon(RGB_space)
   dat <- DataConvex(dataset)
-  faces <- geometry::convhulln(polygon, return.non.triangulated.facets = T)
+  faces <- geometry::convhulln(polygon, return.non.triangulated.facets = TRUE)
 
   #------ Initial Guess ---------------------------------------------------------#
   #--- Translation ---#
@@ -245,7 +245,7 @@ FitColorsFunction <- function(dataset, WL, Wa, Wb){
                            data = dat,
                            polygon = polygon,
                            faces = faces,
-                           control=list(fnscale=-1, maxit=1000)) #, trace=T
+                           control=list(fnscale=-1, maxit=1000))
     k[[i]] <- Simplex_optim
     angle <- angle + 0.5
     start.values <- c(start.values[1], start.values[2]+(pi/angle), start.values[3], start.values[4], start.values[5], start.values[6], start.values[7]) # mirror rotation in x
@@ -261,7 +261,7 @@ FitColorsFunction <- function(dataset, WL, Wa, Wb){
 # S, RotL, Rota, Rotb,  TrL, Tra, Trb
 
 #' @export
-data2cielab <- function(dataset, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates = F){
+data2cielab <- function(dataset, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates = FALSE){
 
   if(class(dataset)[1]!="data.frame"){
     warning("The dataset has been transformed into a data frame.")
@@ -314,7 +314,7 @@ data2cielab <- function(dataset, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates 
 
   LABdata <- with(rawdata, colorspace::LAB(Lstar, Astar, Bstar))
 
-  if(LAB_coordinates==F){
+  if(LAB_coordinates==FALSE){
     colors <- as.data.frame(cbind(rownames(dataset),colorspace::hex(LABdata, fix = TRUE)))
   } else {
     colors <- as.data.frame(cbind(rownames(dataset),as.data.frame(LABdata@coords)))
