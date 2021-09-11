@@ -2,7 +2,6 @@ Package: ucie
 Type: Package
 Title: Mapping 3D Data into CIELab Color Space
 Version: 1.0.0
-Author: Mikaela Koutrouli <mikaela.koutrouli@cpr.ku.dk> [aut, cre], Lars Juhl Jensen <lars.juhl.jensen@cpr.ku.dk> [aut]
 Authors@R: 
   c(person(given = "Mikaela",
            family = "Koutrouli",
