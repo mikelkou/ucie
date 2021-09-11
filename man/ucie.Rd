@@ -24,9 +24,11 @@ None
 Data can be mapped to colors for use in data visualization. UCIE optimally maps data points into a polygon that represents the CIELAB colour space. Since euclidean distances approximate relative perceptual differences in CIELAB color space, the result is a color encoding that aims to capture much of the structure of the original data.
 }
 \examples{
-df <- data.frame(V1=runif(10,  0,1), V2=runif(10,  0,5), V3=runif(10,  0,30))
-data_with_colors <- data2cielab(df, Wb=1.2, S=1.6)
-data_with_colors <- data2cielab(df, LAB_coordinates = TRUE)
+\dontrun{
+  df <- data.frame(V1=runif(10,  0,1), V2=runif(10,  0,5), V3=runif(10,  0,30))
+  data_with_colors <- data2cielab(df, Wb=1.2, S=1.6)
+  data_with_colors <- data2cielab(df, LAB_coordinates = TRUE)
+}
 }
 
 
