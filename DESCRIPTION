@@ -1,4 +1,4 @@
-Package: 'ucie'
+Package: ucie
 Type: Package
 Title: Mapping 3D Data into CIELab Color Space
 Version: 1.0.0
