@@ -1,4 +1,4 @@
-citHeader("To cite ucie3D in publications use:")
+citHeader("To cite 'ucie' in publications use:")
 
 citEntry(
   entry    = "Article",
