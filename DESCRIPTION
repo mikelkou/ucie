@@ -13,7 +13,7 @@ Authors@R:
            role = "aut",
            email = "lars.juhl.jensen@cpr.ku.dk"))
 Maintainer: Mikaela Koutrouli <mikaela.koutrouli@cpr.ku.dk>
-Description: 'ucie' returns a data frame with the names of the input entities and hex colors (or CIELab coordinates). Data can be mapped to colors for use in data visualization. 'ucie' optimally maps data points into a polygon that represents the CIELab colour space. Since Euclidean distance approximates relative perceptual differences in CIELab color space, the result is a color encoding that aims to capture much of the structure of the original data. 
+Description: 'ucie' returns a data frame with the names of the input data points and hex colors (or CIELab coordinates). Data can be mapped to colors for use in data visualization. 'ucie' optimally maps data points into a polygon that represents the CIELab colour space. Since Euclidean distance approximates relative perceptual differences in CIELab color space, the result is a color encoding that aims to capture much of the structure of the original data. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.1.1
