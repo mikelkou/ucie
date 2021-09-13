@@ -21,7 +21,7 @@ data2cielab(dataset, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates = FALSE)
 None
 }
 \description{
-'ucie' returns a data frame with the names of the input data points and hex colors (or CIELab coordinates). Data can be mapped to colors for use in data visualization. 'ucie' optimally maps data points into a polygon that represents the CIELab colour space. Since Euclidean distance approximates relative perceptual differences in CIELab color space, the result is a color encoding that aims to capture much of the structure of the original data.
+This package returns a data frame with the names of the input data points and hex colors (or CIELab coordinates). Data can be mapped to colors for use in data visualization. 'ucie' optimally maps data points into a polygon that represents the CIELab colour space. Since Euclidean distance approximates relative perceptual differences in CIELab color space, the result is a color encoding that aims to capture much of the structure of the original data.
 }
 \examples{
 \donttest{
