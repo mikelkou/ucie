@@ -11,6 +11,7 @@ NULL
 
 # RGL_USE_NULL=TRUE
 
+
 RGB_space <- data.frame("R"= c(seq(0, 255, by=32),255, # K -> R
                                seq(0, 255, by=32),255, # G -> Y
                                rep(255, 9), # Y -> W
