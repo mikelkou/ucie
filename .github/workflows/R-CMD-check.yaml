@@ -1,131 +1,63 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/master/examples
-
-
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
-
   push:
-
     branches: [main, master]
-
   pull_request:
-
     branches: [main, master]
 
-name: CI
-
-
+name: C
 jobs:
-
   R-CMD-check:
-
     runs-on: ubuntu-latest
-
-
     env:
-
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-
       R_KEEP_PKG_SOURCE: yes
-
       RGL_USE_NULL: true
-
-
     steps:
-
       - uses: actions/checkout@v2
-
-
       - uses: r-lib/actions/setup-r@v1
-
         with:
-
           use-public-rspm: true
-
-
       - uses: r-lib/actions/setup-r-dependencies@v1
-
         with:
-
           extra-packages: rcmdcheck
-
       - name: Query dependencies
-
         run: |
-
           install.packages(c('remotes', 'sessioninfo', 'rcmdcheck', 'desc'))
-
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-
           writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
-
         shell: Rscript {0}
-
 
       - name: Install rgl & dependencies
-
         run: |
-
           # Be sure to get appropriate CRAN or Github versions
-
           install.packages(c("pkgdown", "downlit", "htmlwidgets"))
-
           # First rgl plus hard deps
-
           remotes::install_local(force = TRUE)
-
           deps <- subset(desc::desc_get_deps(), type == "Suggests")$package
-
           deps <- setdiff(deps, c("tcltk", "webshot2"))
-
           remotes::install_cran(deps)
-
           install.packages("webshot2", repos = "https://dmurdoch.github.io/drat", type = "source")
-
         shell: Rscript {0}
-
-
       - name: Check
-
         env:
-
           R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-
           #_R_CHECK_CRAN_INCOMING_: false
-
           RGL_USE_NULL: true
-
         run: |
-
           Sys.setenv("DISPLAY"=":0.0")
-
           suppressPackageStartupMessages(suppressWarnings(library(tcltk)))
-
           options(crayon.enabled = TRUE)
-
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
-
         shell: Rscript {0}
-
-
       - name: Show testthat output
-
         if: always()
-
         run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
-
         shell: bash
-
-
       - name: Upload check results
-
         if: failure()
-
         uses: actions/upload-artifact@main
-
         with:
-
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-
           path: check
-
