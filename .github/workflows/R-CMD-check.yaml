@@ -6,7 +6,8 @@ on:
   pull_request:
     branches: [main, master]
 
-name: C
+name: CI
+
 jobs:
   R-CMD-check:
     runs-on: ubuntu-latest
@@ -14,14 +15,18 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
       RGL_USE_NULL: true
+      # R_COMPILE_AND_INSTALL_PACKAGES: true
     steps:
       - uses: actions/checkout@v2
+
       - uses: r-lib/actions/setup-r@v1
         with:
           use-public-rspm: true
+
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
           extra-packages: rcmdcheck
+
       - name: Query dependencies
         run: |
           install.packages(c('remotes', 'sessioninfo', 'rcmdcheck', 'desc'))
@@ -40,6 +45,7 @@ jobs:
           remotes::install_cran(deps)
           install.packages("webshot2", repos = "https://dmurdoch.github.io/drat", type = "source")
         shell: Rscript {0}
+
       - name: Check
         env:
           R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -51,10 +57,12 @@ jobs:
           options(crayon.enabled = TRUE)
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
+
       - name: Show testthat output
         if: always()
         run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
         shell: bash
+
       - name: Upload check results
         if: failure()
         uses: actions/upload-artifact@main
