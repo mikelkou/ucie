@@ -257,12 +257,30 @@ FitColorsFunction <- function(dataset, WL, Wa, Wb){
   return(result)
 }
 
-
 # S, RotL, Rota, Rotb,  TrL, Tra, Trb
 
 #' @export
 data2cielab <- function(dataset, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates = FALSE){
+  parameters_produced_from_fitting = Parameters(dataset, WL, Wa, Wb)
+  colors = ProduceColors(dataset,
+                            Soptim = parameters_produced_from_fitting[1],
+                            RotL = parameters_produced_from_fitting[2],
+                            Rota = parameters_produced_from_fitting[3],
+                            Rotb = parameters_produced_from_fitting[4],
+                            TrL = parameters_produced_from_fitting[5],
+                            Tra = parameters_produced_from_fitting[6],
+                            Trb = parameters_produced_from_fitting[7],
+                            WL,
+                            Wa,
+                            Wb,
+                            S,
+                            LAB_coordinates)
 
+  return(colors)
+}
+
+#' @export
+Parameters <- function(dataset, WL = 1, Wa = 1, Wb = 1){
   if(class(dataset)[1]!="data.frame"){
     warning("The dataset has been transformed into a data frame.")
     if(is.na(as.numeric(dataset[,1]))){
@@ -295,10 +313,16 @@ data2cielab <- function(dataset, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates 
     stop("The dataset has missing values. Check again!")
   }
 
-  FitColorsFunction_parameters = FitColorsFunction(dataset, WL, Wa, Wb)
-  dataset <- Scaling(dataset, FitColorsFunction_parameters[1]*S)
-  dataset <- Rotation(as.matrix(dataset), FitColorsFunction_parameters[2], FitColorsFunction_parameters[3], FitColorsFunction_parameters[4])
-  dataset <- Translation(as.matrix(dataset), FitColorsFunction_parameters[5], FitColorsFunction_parameters[6], FitColorsFunction_parameters[7])
+  parameters = FitColorsFunction(dataset, WL, Wa, Wb)
+  cat("The 7 parameters represent: S, RotL, Rota, Rotb, TrL, Tra, Trb:")
+  return(parameters)
+}
+
+#' @export
+ProduceColors <- function(dataset, Soptim, RotL, Rota, Rotb, TrL, Tra, Trb, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates = FALSE){
+  dataset <- Scaling(dataset, Soptim*S)
+  dataset <- Rotation(as.matrix(dataset), RotL, Rota, Rotb)
+  dataset <- Translation(as.matrix(dataset), TrL, Tra, Trb)
 
   Lab <- dataset
   Lab <- round(Lab, 2)
@@ -324,6 +348,8 @@ data2cielab <- function(dataset, WL = 1, Wa = 1, Wb = 1, S = 1, LAB_coordinates 
 
   return(colors)
 }
+
+
 
 
 
