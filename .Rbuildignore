@@ -8,3 +8,4 @@
 ^appveyor\.yml$
 ^\.circleci$
 ^\.circleci/config\.yml$
+^CRAN-SUBMISSION$
